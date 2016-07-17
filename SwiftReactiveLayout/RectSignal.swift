@@ -2,22 +2,28 @@
 
 import Foundation
 import ReactiveCocoa
+import enum Result.NoError
+
+
+public func SPBox<T>(_ value: T) -> SignalProducer<T, Result.NoError> {
+  return SignalProducer(value: value)
+}
 
 public func rectSignal<E>(
-  rect: Signal<CGRect, E>? = nil,
-  size: Signal<CGSize, E>? = nil,
-  origin: Signal<CGPoint, E>? = nil,
-  center: Signal<CGPoint, E>? = nil,
-  centerX: Signal<CGFloat, E>? = nil,
-  centerY: Signal<CGFloat, E>? = nil,
-  width: Signal<CGFloat, E>? = nil,
-  height: Signal<CGFloat, E>? = nil,
-  left: Signal<CGFloat, E>? = nil,
-  right: Signal<CGFloat, E>? = nil,
-  top: Signal<CGFloat, E>? = nil,
-  bottom: Signal<CGFloat, E>? = nil
-) -> Signal<CGRect, E> {
-  var (signal, observer) = Signal<CGRect, E>.pipe()
+  rect: SignalProducer<CGRect, E>? = nil,
+  size: SignalProducer<CGSize, E>? = nil,
+  origin: SignalProducer<CGPoint, E>? = nil,
+  center: SignalProducer<CGPoint, E>? = nil,
+  centerX: SignalProducer<CGFloat, E>? = nil,
+  centerY: SignalProducer<CGFloat, E>? = nil,
+  width: SignalProducer<CGFloat, E>? = nil,
+  height: SignalProducer<CGFloat, E>? = nil,
+  left: SignalProducer<CGFloat, E>? = nil,
+  right: SignalProducer<CGFloat, E>? = nil,
+  top: SignalProducer<CGFloat, E>? = nil,
+  bottom: SignalProducer<CGFloat, E>? = nil
+) -> SignalProducer<CGRect, E> {
+  var signal = SignalProducer<CGRect, E>(value: CGRectZero)
 
   assert(left == nil || right == nil)
   assert(top == nil || bottom == nil)
@@ -35,6 +41,5 @@ public func rectSignal<E>(
   signal = top == nil ? signal : signal.replaceY(top!)
   signal = bottom == nil ? signal : signal.replaceBottom(bottom!)
 
-  observer.sendNext(CGRectZero)
   return signal
 }
