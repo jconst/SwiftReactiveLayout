@@ -4,6 +4,7 @@ import Foundation
 import ReactiveCocoa
 
 public extension CGRect {
+  @warn_unused_result(message="Doesn't actually change the rect, just returns a new one")
   public func change(block: (inout CGRect) -> ()) -> CGRect {
     var r = self
     block(&r)
