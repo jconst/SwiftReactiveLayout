@@ -10,7 +10,7 @@ public func SPBox<T>(_ value: T) -> SignalProducer<T, Result.NoError> {
 }
 
 public func rectSignal<E>(
-  rect: SignalProducer<CGRect, E>? = nil,
+  _ rect: SignalProducer<CGRect, E>? = nil,
   size: SignalProducer<CGSize, E>? = nil,
   origin: SignalProducer<CGPoint, E>? = nil,
   center: SignalProducer<CGPoint, E>? = nil,
@@ -23,7 +23,7 @@ public func rectSignal<E>(
   top: SignalProducer<CGFloat, E>? = nil,
   bottom: SignalProducer<CGFloat, E>? = nil
 ) -> SignalProducer<CGRect, E> {
-  var signal = SignalProducer<CGRect, E>(value: CGRectZero)
+  var signal = SignalProducer<CGRect, E>(value: CGRect.zero)
 
   assert(left == nil || right == nil)
   assert(top == nil || bottom == nil)

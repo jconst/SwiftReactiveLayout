@@ -1,7 +1,7 @@
 //  Created by Joseph Constantakis on 7/16/16.
 
 public extension NSObject {
-  func lazyProperty<T>(key: UnsafePointer<Void>, _ initializer: (() -> T)) -> T {
+  func lazyProperty<T>(_ key: UnsafeRawPointer, _ initializer: (() -> T)) -> T {
     func getter() -> T? {
       return getAssociatedObject(self, key)
     }
@@ -19,11 +19,11 @@ private final class ValueWrapper<T> {
   }
 }
 
-private func wrap<T>(x: T) -> ValueWrapper<T>  {
+private func wrap<T>(_ x: T) -> ValueWrapper<T>  {
   return ValueWrapper(x)
 }
 
-func setAssociatedObject<T>(object: AnyObject, _ associativeKey: UnsafePointer<Void>, _ value: T,
+func setAssociatedObject<T>(_ object: AnyObject, _ associativeKey: UnsafeRawPointer, _ value: T,
     _ policy: objc_AssociationPolicy) {
   if let v: AnyObject = value as? AnyObject {
     objc_setAssociatedObject(object, associativeKey, v,  policy)
@@ -33,7 +33,7 @@ func setAssociatedObject<T>(object: AnyObject, _ associativeKey: UnsafePointer<V
   }
 }
 
-func getAssociatedObject<T>(object: AnyObject, _ associativeKey: UnsafePointer<Void>) -> T? {
+func getAssociatedObject<T>(_ object: AnyObject, _ associativeKey: UnsafeRawPointer) -> T? {
   if let v = objc_getAssociatedObject(object, associativeKey) as? T {
     return v
   }
