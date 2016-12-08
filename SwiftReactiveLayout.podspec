@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'SwiftReactiveLayout/*'
-  s.dependency 'ReactiveCocoa'
+  s.dependency 'ReactiveSwift'
   s.ios.frameworks = 'Foundation', 'CoreGraphics', 'UIKit'
 end
