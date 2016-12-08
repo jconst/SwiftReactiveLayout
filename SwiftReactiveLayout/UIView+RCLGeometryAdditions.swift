@@ -1,7 +1,7 @@
 //  Created by Joseph Constantakis on 6/30/16.
 
 import Foundation
-import ReactiveCocoa
+import ReactiveSwift
 import enum Result.NoError
 
 private var boundsSignalKey = ()

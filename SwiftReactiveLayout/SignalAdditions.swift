@@ -1,7 +1,7 @@
 //  Created by Joseph Constantakis on 7/3/16.
 
 import Foundation
-import ReactiveCocoa
+import ReactiveSwift
 
 public extension CGRect {
   
@@ -12,7 +12,7 @@ public extension CGRect {
   }
 }
 
-public extension SignalType where Value == CGRect {
+public extension SignalProtocol where Value == CGRect {
   public func replaceX(_ xSig: Signal<CGFloat, Error>) -> Signal<Value, Error> {
     return self.combineLatestWith(xSig).map{ (rect, x) in
       return rect.change{ $0.origin.x = x }}
@@ -63,7 +63,7 @@ public extension SignalType where Value == CGRect {
   }
 }
 
-public extension SignalProducerType where Value == CGRect {
+public extension SignalProducerProtocol where Value == CGRect {
   public func replaceX(_ xSig: SignalProducer<CGFloat, Error>) -> SignalProducer<Value, Error> {
     return lift(Signal.replaceX)(xSig)
   }
@@ -101,7 +101,7 @@ public extension SignalProducerType where Value == CGRect {
   }
 }
 
-public extension SignalProducerType where Value == CGRect {
+public extension SignalProducerProtocol where Value == CGRect {
   public func replaceX(_ xSig: Signal<CGFloat, Error>) -> SignalProducer<Value, Error> {
     return lift(Signal.replaceX)(xSig)
   }
